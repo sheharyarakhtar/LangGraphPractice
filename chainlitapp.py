@@ -11,6 +11,10 @@ from langchain.schema import Document
 from typing_extensions import TypedDict
 from typing import List
 from langgraph.graph import END, StateGraph
+import yaml
+
+with open('config.yaml','r') as file:
+  config = yaml.safe_load(file)
 
 os.environ['TAVILY_API_KEY'] = config['TAVILY_API_KEY']
 llm = ChatGoogleGenerativeAI(model = 'gemini-1.5-flash',
