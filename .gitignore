@@ -162,3 +162,7 @@ cython_debug/
 #.idea/
 "config.yaml" 
 "config.yaml" 
+
+"./RAG/config.yaml"
+"./RAG/HF"
+"./RAG/__pycache__"
