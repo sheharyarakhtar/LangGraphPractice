@@ -17,7 +17,9 @@ with open('config.yaml','r') as file:
   config = yaml.safe_load(file)
 
 os.environ['TAVILY_API_KEY'] = config['TAVILY_API_KEY']
-llm = ChatGoogleGenerativeAI(model = 'gemini-1.5-flash',
+os.environ['LITERAL_API_KEY'] = config['LITERAL_API_KEY']
+
+llm = ChatGoogleGenerativeAI(model = 'gemini-1.5-pro',
                              api_key = config['GOOGLE_API_KEY'],
                              temperature = 0,
                              verbose = True)
