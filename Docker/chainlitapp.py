@@ -13,12 +13,8 @@ from typing import List
 from langgraph.graph import END, StateGraph
 import yaml
 
-with open('config.yaml','r') as file:
-  config = yaml.safe_load(file)
-
-os.environ['TAVILY_API_KEY'] = config['TAVILY_API_KEY']
 llm = ChatGoogleGenerativeAI(model = 'gemini-1.5-flash',
-                             api_key = config['GOOGLE_API_KEY'],
+                             api_key = os.environ.get('GOOGLE_API_KEY'),
                              temperature = 0,
                              verbose = True)
 web_search_tool = TavilySearchResults()
