@@ -3,6 +3,7 @@ from langchain_community.document_loaders.pdf import PyPDFLoader
 from langchain_community.document_loaders.word_document import Docx2txtLoader
 from langchain_community.document_loaders.csv_loader import CSVLoader
 import os
+import pickle
 
 class DocumentLoaderClass():
 	def __init__(self):
@@ -23,9 +24,11 @@ class DocumentLoaderClass():
 				self.pages.extend(pages)
 				self.update_loaded_files(pdf_file)
 				print(f"File {pdf_file} loaded")
+				
 			except Exception as e:
 				print(e)
 				print(f"File {pdf_file} not loaded")
+		return './files/'+pdf_file
 
 	def load_docs(self):
 		for docx_file in self.docx:
@@ -38,6 +41,7 @@ class DocumentLoaderClass():
 			except Exception as e:
 				print(e)
 				print(f"File {docx_file} not loaded")
+		return './files/'+docx_file
 	def load_csvs(self):
 		for csv_file in self.csv:
 			try:
@@ -49,11 +53,22 @@ class DocumentLoaderClass():
 			except Exception as e:
 				print(e)
 				print(f"File {csv_file} not loaded")
+		return './files/'+csv_file
 	def load_all_files(self):
+		files = []
 		if self.pdfs:
-			self.load_pdfs()
+			files.append(self.load_pdfs())
 		if self.docx:
-			self.load_docs()
+			files.append(self.load_docs())
 		if self.csv:
-			self.load_csvs()
+			files.append(self.load_csvs())
+		self.files = set(files)
+
+		filename = 'previous_files'
+		if not os.path.exists(filename):
+			with open(filename,'wb') as file:
+				pickle.dump(self.files, file)
+		else: 
+			pass
+		
 

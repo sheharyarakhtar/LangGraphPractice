@@ -4,7 +4,7 @@ from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import pickle
-
+import os
 class VectorDBClass(DocumentLoaderClass):
 	def __init__(self):
 		super().__init__()
@@ -42,7 +42,8 @@ class VectorDBClass(DocumentLoaderClass):
 			print("Loading Old FAISS VectorDB")
 			self.vectorDB = FAISS.load_local(
 				"faiss_vectorDB",
-				self.embedding_model
+				self.embedding_model,
+				allow_dangerous_deserialization=True
 				)
 		if db_type == 'Chroma':
 			print("Loading Old Chroma VectorDB")
@@ -55,8 +56,11 @@ class VectorDBClass(DocumentLoaderClass):
 		db_type = 'FAISS', tokenize = False, 
 		create_new_db = True, chunk_size = 500, 
 		chunk_overlap = 50):
-		with open('previous_files','rb') as f:
-			old = pickle.load(f)
+		if os.path.exists('previous_files'):
+			with open('previous_files','rb') as f:
+				old = pickle.load(f)
+		else:
+			old = set()
 		new_files = self.files.copy()
 
 		if (set(new_files) - old) or create_new_db:
