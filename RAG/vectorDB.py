@@ -61,9 +61,11 @@ class VectorDBClass(DocumentLoaderClass):
 				old = pickle.load(f)
 		else:
 			old = set()
-		new_files = self.files.copy()
-
-		if (set(new_files) - old) or create_new_db:
+		new_files = set(os.listdir('./files/'))
+		diff_files = new_files - old
+		print("NEW FILES SET", new_files, "OLD FILES SET", old)
+		print("DIFF : ", diff_files)
+		if (diff_files) or create_new_db:
 			self.load_all_files()
 			if tokenize:
 				print("Tokenizing All files")
@@ -72,6 +74,8 @@ class VectorDBClass(DocumentLoaderClass):
 				print("Keeping original file split")
 				self.docs = self.pages
 			self.CreateVectorDB(db_type = db_type)
+			with open('previous_files','wb') as f:
+				pickle.dump(new_files, f)
 		else:
 			self.LoadVectorDB(db_type = db_type)
 
