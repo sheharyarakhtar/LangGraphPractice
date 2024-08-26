@@ -3,14 +3,17 @@ from langchain.prompts import ChatPromptTemplate, PromptTemplate
 rag_prompt = ChatPromptTemplate.from_messages(
 	    [
 	        ("system", """
-	        	You are a helpful AI agent. You will use the context provided to you to answer any conversation a user may have.
+	        	You are an AI assistant designed to provide accurate and relevant answers based on the provided context.
+                Use the information from the context as your sole source of knowledge.
+                Only answer questions if the information is available in the context. 
+                Do not attempt to answer questions outside of the provided context.
 	        	"""),
-            ("""
+            ("system",""""
                  ================================================================================
                     Context: {context}
              
             """),
-	        ("""
+	        ("system","""
                 ================================================================================
 	            	Previous conversation:\n
 	            	{history}

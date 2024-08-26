@@ -102,8 +102,13 @@ async def on_chat_start():
     
     # Initialize the vector database class and run it.
     loader = VectorDBClass()
+<<<<<<< Updated upstream
     loader.run(
         db_type='FAISS',
+=======
+    loader.setup(
+        db_type = 'FAISS',
+>>>>>>> Stashed changes
         tokenize=False,
         create_new_db=False,
         chunk_overlap=50, chunk_size=250
@@ -150,8 +155,13 @@ async def on_chat_resume(thread: ThreadDict):
     
     # Initialize the vector database class and run it.
     loader = VectorDBClass()
+<<<<<<< Updated upstream
     loader.run(
         db_type='FAISS',
+=======
+    loader.setup(
+        db_type = 'FAISS',
+>>>>>>> Stashed changes
         tokenize=False,
         create_new_db=False,
         chunk_overlap=50, chunk_size=250
@@ -223,8 +233,11 @@ async def on_message(message: cl.Message):
 
     # Send the final response message.
     await res.send()
+<<<<<<< Updated upstream
 
 
     # memory.chat_memory.add_user_message(message.content)
     # memory.chat_memory.add_ai_message(res.content)
 
+=======
+>>>>>>> Stashed changes
