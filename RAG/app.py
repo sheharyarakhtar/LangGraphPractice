@@ -96,7 +96,8 @@ async def on_chat_start():
     value = settings["Model"]
     llm = ChatGoogleGenerativeAI(
         model=value,
-        temperature=0
+        temperature=0,
+        stream=True
     )
     
     # Initialize the vector database class and run it.
@@ -143,7 +144,8 @@ async def on_chat_resume(thread: ThreadDict):
     value = settings["Model"]
     llm = ChatGoogleGenerativeAI(
         model=value,
-        temperature=0
+        temperature=0,
+        stream=True
     )
     
     # Initialize the vector database class and run it.
